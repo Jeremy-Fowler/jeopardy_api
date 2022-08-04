@@ -9,9 +9,28 @@ function _draw() {
 export class CluesController {
   constructor () {
     ProxyState.on('clues', _draw)
+    this.getClues()
   }
 
-  async getClues(id) {
-    await cluesService.getClues(id)
+  async getClues() {
+    try {
+      await cluesService.getClues()
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  setActiveClue(id) {
+    let clue = ProxyState.clues.find(c => c.id == id)
+    // @ts-ignore
+    document.getElementById('modal-header').innerHTML = clue.category.title + ' ' + clue.value
+    // @ts-ignore
+    document.getElementById('modal-body').innerHTML = clue.CardTemplate
+    // @ts-ignore
+    console.log('Answer: ' + clue.answer)
+    // @ts-ignore
+    let template = ''
+    ProxyState.players.forEach(p => template += p.ButtonTemplate)
+    // @ts-ignore
+    document.getElementById('player-buttons').innerHTML = template
   }
 }

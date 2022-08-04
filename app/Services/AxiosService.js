@@ -1,6 +1,6 @@
 // @ts-ignore
 export const jService = axios.create({
-  baseURL: "https://jservice.io/api/",
+  baseURL: "https://jservice.io/api/random",
   timeout: 5000
 })
 
